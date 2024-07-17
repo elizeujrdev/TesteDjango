@@ -40,12 +40,12 @@ class Actions(TemplateBase):
 class Datas(TemplateBase):
     actions_id = models.ForeignKey(Actions, on_delete=models.PROTECT,null=True)
     date=models.DateField(blank=False,null=False)
-    open=models.FloatField()
-    high=models.FloatField()
-    low=models.FloatField()
-    close=models.FloatField()
-    adj_close=models.FloatField()
-    volume=models.FloatField()
+    open=models.FloatField(blank=True,null=True)
+    high=models.FloatField(blank=True,null=True)
+    low=models.FloatField(blank=True,null=True)
+    close=models.FloatField(blank=True,null=True)
+    adj_close=models.FloatField(blank=True,null=True)
+    volume=models.FloatField(blank=True,null=True)
 
     def __str__(self) -> str:
         return f'{self.id} | {self.actions_id} | {self.date}'

@@ -6,6 +6,36 @@ import pandas as pd
 
 
 
+def refresh_action_link(requests,id):
+    action_ref=Actions.objects.get(id=id)
+
+
+    datas=pd.read_csv(f'https://query1.finance.yahoo.com/v7/finance/download/{action_ref.name}?period1=0&period2=9999999999&interval=1d&events=history&includeAdjustedClose=true')
+    for i in range(len(datas)):
+        try:
+            data=datas.iloc[i]
+            if not Datas.objects.filter(actions_id=action_ref,date=data['Date']).exists():
+                new_data=Datas(create_by=requests.user,
+                               actions_id=action_ref,
+                               date=data['Date'],
+                               open=data['Open'],
+                               high=data['High'],
+                               low=data['Low'],
+                               close=data['Close'],
+                               adj_close=data['Adj Close'],
+                               volume=data['Volume']
+                               ).save()
+        except Exception as e:
+            return HttpResponse(f"""Errro: {e}""")
+    actions=Actions.objects.all()
+    context={'actions':actions}
+    return render(request=requests,
+                  template_name='action_detail.html',
+                  context=context)
+
+
+
+
 def refresh_action(requests):
     action= requests.POST.get('action')
     action_ref=Actions.objects.get(name=action)

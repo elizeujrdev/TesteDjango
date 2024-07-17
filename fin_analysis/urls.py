@@ -25,7 +25,8 @@ urlpatterns = [
     path('action_detail/', views.action_detail,name='action_detail'),
     path('notifications/', views.notifications,name='notifications'),
     path('login/', CustomLoginView.as_view(), name='login'),
-    path("action_detail/<int:id>/", views.action_detail,name='action_detail')
+    path("action_detail/<int:id>/", views.action_detail,name='action_detail'),
+    path("refresh_action_link/<int:id>/", views_htmx.refresh_action_link,name='refresh_action_link')
 ]
 
 
