@@ -1,4 +1,4 @@
-app_name='Financial Analysis'
+app_name='FinancePro'
 
 
 

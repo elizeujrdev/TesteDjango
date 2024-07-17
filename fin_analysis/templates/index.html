@@ -8,7 +8,7 @@
     <div class="row row-cols-4">
         {% for action in actions %}
             <div class="col">
-                <div class="card" style="width: 18rem; margin-bottom: 15px;">
+                <div class="card" style="width: 18rem; margin-bottom: 20px;">
                     <a href="{% url 'action_detail' action.id %}" style="text-decoration: none; color: black;">
                     <img src="{% static 'global/img/capa.jpg' %}" class="card-img-top" alt="logomarca-empresa">
                     <h5>{{action}}</h5>

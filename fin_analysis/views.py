@@ -10,7 +10,7 @@ context_base={'app_name':app_name}
 
 def home(requests):
     actions=Actions.objects.all().order_by('name')
-    context={'page_title':app_name, 'title': f'{app_name} | Bem vindo','actions':actions}
+    context={'page_title':app_name, 'title': f'{app_name} | Principais Ações','actions':actions}
     context.update(context_base)
     return render(request=requests,
                   template_name='index.html',
