@@ -1,0 +1,21 @@
+{% block content %}
+{% load static %}
+<ul class="list-group">
+{% for notification in notifications %}
+    <li class="list-group-item">
+        <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <h5>{{notification.create_at}}</h5>
+            </div>
+            <div class="col-3">
+                <h5>{{notification.text}}</h5>
+            </div>
+        </div>
+        </div>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
+
+

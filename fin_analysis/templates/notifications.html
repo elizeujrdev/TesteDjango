@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+<p class="h1 text-center">{{title}}</p>
+</div>
+<div class="container" id="return_load_action">
+{% include 'partials/htmx_components/list_notifications.html' %}
+</div>
+{% endblock %}
+

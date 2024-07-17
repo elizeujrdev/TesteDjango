@@ -1,0 +1,26 @@
+.navbar{
+    border-bottom: 3px solid;
+    border-image: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045) 1;
+}
+
+.menu_logo{
+    border-bottom: 2px solid green;
+}
+
+
+.icon_user {
+    height: 40px;
+    }
+
+.img-fluid.logo_icon {
+margin-left: 50px;
+height: 60px;
+}
+
+
+.img-fluid.logo_menu {
+    margin-left: 50px;
+    height: 130px;
+    }
+    
+    

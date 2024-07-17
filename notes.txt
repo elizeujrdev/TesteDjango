@@ -1,0 +1,30 @@
+Instalar o django:
+    pip install django
+
+Criar o projeto:
+    django-admin startproject testdjango .
+    [nome do projeto]
+Iniciar Servidor:
+    python manage.py runserver
+
+Parar Servidor:
+    (control + C)
+
+Criar um App:
+    python manage.py startapp fin_analysis
+    *lembre-se de adicionar o app no settings
+
+
+Criar ou modificar o banco de dados com o Migrations:
+    python manage.py makemigrations
+
+Confirmar as alterações no banco de dados:
+    python manage.py migrate
+
+Criar o usuario Root (super user):
+    python manage.py createsuperuser
+
+Dados do SuperUser:
+    usuario: pablo
+    email: pablofelix2012@gmail.com
+    senha: 39f5E8jP]1a4

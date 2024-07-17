@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div>
+<p class="h1 text-center">{{title}}</p>
+</div>
+<div class="container text-center">
+    <div class="row row-cols-4">
+        {% for action in actions %}
+            <div class="col">
+                <div class="card" style="width: 18rem; margin-bottom: 15px;">
+                    <a href="{% url 'action_detail' action.id %}" style="text-decoration: none; color: black;">
+                    <img src="{% static 'global/img/capa.jpg' %}" class="card-img-top" alt="logomarca-empresa">
+                    <h5>{{action}}</h5>
+                    <h6>{{action.description}}</h6>
+                    </a>
+                <div class="card-body">
+                    <p class="card-text">(ultimas noticias) {{forloop.counter}} </p>
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}
+
