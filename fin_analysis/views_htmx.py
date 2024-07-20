@@ -71,7 +71,7 @@ def add_action(requests):
     description= requests.POST.get('description')
     if not Actions.objects.filter(name=action).exists():
         new_action=Actions(create_by=requests.user,name=action,description=description).save()
-    refresh_action(requests)
+    #refresh_action(requests)
     actions=Actions.objects.all()
     context={'actions':actions}
     return render(request=requests,

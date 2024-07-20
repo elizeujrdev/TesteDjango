@@ -1,19 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-<a href="{% url 'etl' %}">
-    <button style="margin: 20px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
-        </svg>
-    </button>
-</a>
-
-
+    <a href="{% url 'etl' %}">
+        <button style="margin: 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+            </svg>
+        </button>
+    </a>
     <div class="container">
         <div class="row">
             <div class="col-8">
-                <h3 class="text-center">{{action}}</h3>
+                <h3 class="text-center">{{action_title}}</h3>
             </div>
             <div class="col-3">
                 <a href="{% url 'refresh_action_link' action.id %}">
@@ -27,8 +25,7 @@
             </div>
         </div>
     </div>
-
-
+    <div class="border">{{graph_html|safe}}</div>
     <style>
         table {
            width: 90%;
@@ -47,7 +44,7 @@
         }
     </style>
     <br>
-    <table>
+    <table class="border">
         <thead>
             <tr>
                 <th>Data</th>
@@ -73,9 +70,5 @@
             {% endfor %}
         </tbody>
     </table>
-
-
-
-
 {% endblock %}
 

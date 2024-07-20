@@ -13,7 +13,6 @@ class CustomLoginView(auth_views.LoginView):
         context['app_name']=apn
         context['page_title']= f'{apn} | Login'
         context['title']=f'{apn} | Login'
-
         context['host_path']='Login'
         context['custom_variable'] = 'Valor personalizado'
         return context
