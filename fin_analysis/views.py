@@ -80,7 +80,6 @@ def action_detail(requests, id):
     context={'page_title': f'{app_name} | ETL','title': f'{app_name} | ETL','action':action,'action_title':f'{action.id} | {action.name} | {action.description}'}
     try:
         df = pd.DataFrame(list(datas.values()))
-        print(df.columns)
         fig = px.line(df,x='date',y=['open','high','low','close','adj_close'])
         fig.update_layout(
             plot_bgcolor='#FAFAFA',  # Cor de fundo do gráfico
@@ -118,8 +117,17 @@ def action_detail(requests, id):
             ]
         )
         graph_html = fig.to_html(full_html=False)
+        ultima_linha=df.iloc[len(df)-1]
+        content_view+=cmp.columns([cmp.card(f'Qtde.',len(df)),
+                                   cmp.card(f'Date',ultima_linha['date']),
+                                   cmp.card(f'Open',ultima_linha['open']),
+                                   cmp.card(f'High',ultima_linha['high']),
+                                   cmp.card(f'Low',ultima_linha['low']),
+                                   cmp.card(f'Close',ultima_linha['close']),
+                                   cmp.card(f'Adj Close',ultima_linha['adj_close'])
+                                   ])
         content_view+=graph_html
-        content_view+=cmp.table(df)
+        content_view+=cmp.expander('Detail',cmp.table(df),key='exp_tb_detail')
         context.update({'content_view':content_view})
     except:
         pass
