@@ -21,6 +21,7 @@ class CustomLoginView(auth_views.LoginView):
 urlpatterns = [
     path('', views.home,name='home'),
     path('etl/', views.etl,name='etl'),
+    path('drafts/', views.drafts,name='drafts'),
     path('action_detail/', views.action_detail,name='action_detail'),
     path('notifications/', views.notifications,name='notifications'),
     path('login/', CustomLoginView.as_view(), name='login'),

@@ -16,8 +16,18 @@
                         <form>
                             <div class="mb-3">
                                 {% csrf_token %}
-                                <input class="form-control" type="text" name="action" placeholder="Nome da Ação">
-                                <input class="form-control" type="text" name="description" placeholder="Descrição">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" name="action" id="action" placeholder="PETR4.SA" required>
+                                    <label for="action">Nome da Ação</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" name="description" id="description" placeholder="Petróleo Brasileiro S.A" required>
+                                    <label for="action">Descrição</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="file" class="form-control" name="image" id="image" placeholder="Petróleo Brasileiro S.A">
+                                    <label for="action">Imagem</label>
+                                </div>
                                 <button class="btn btn-success" hx-post="{% url 'add_action' %}" hx-trigger="click" hx-target="#return_load_action">Salvar</button>
                             </div>
                         </form>

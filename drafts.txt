@@ -1,0 +1,1 @@
+'border-primary','border-primary-subtle','border-secondary','border-secondary-subtle','border-success','border-success-subtle','border-danger','border-danger-subtle','border-warning','border-warning-subtle','border-info','border-info-subtle','border-light','border-light-subtle','border-dark','border-dark-subtle','border-black','border-white"></span>

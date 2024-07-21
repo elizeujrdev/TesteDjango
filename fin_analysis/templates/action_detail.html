@@ -25,50 +25,6 @@
             </div>
         </div>
     </div>
-    <div class="border">{{graph_html|safe}}</div>
-    <style>
-        table {
-           width: 90%;
-            margin: 0 auto;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-    <br>
-    <table class="border">
-        <thead>
-            <tr>
-                <th>Data</th>
-                <th>Open</th>
-                <th>High</th>
-                <th>Low</th>
-                <th>Close</th>
-                <th>Adj Close</th>
-                <th>Volume</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for data in datas %}
-            <tr>
-            <td>{{ data.date }}</td>
-            <td>{{ data.open }}</td>
-            <td>{{ data.high }}</td>
-            <td>{{ data.low }}</td>
-            <td>{{ data.close }}</td>
-            <td>{{ data.adj_close }}</td>
-            <td>{{ data.volume }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div>{{content_view|safe}}</div>
 {% endblock %}
 

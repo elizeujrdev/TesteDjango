@@ -8,6 +8,8 @@ from .utilities import CachePickle
 import plotly.express as px
 from django.shortcuts import render
 import pandas as pd
+from testdjango.components import components as cmp
+
 
 
 context_base={'app_name':app_name,'notifications_counts':0}
@@ -20,16 +22,43 @@ def refresh_context_base(requests):
 
 
 def home(requests):
-    actions=Actions.objects.all().order_by('name')
+    actions=Actions.objects.all().order_by('description')
     context={'page_title':app_name, 'title': f'{app_name} | Principais Ações','actions':actions}
     context.update(refresh_context_base(requests))
     return render(request=requests,
                   template_name='index.html',
                   context=context)
 
+def drafts(requests):
+    context={'page_title':f'{app_name} | Drafts', 'title': f'{app_name} | Drafts'}
+    context.update(refresh_context_base(requests))
+    content_view=''
+
+    
+    content_view+=cmp.h(f"Titulo H1",1)
+    content_view+=cmp.columns([cmp.h('Coluna 1',2),cmp.h('Coluna 2',2),cmp.h('Coluna 3',2),cmp.h('Coluna 4',2),cmp.h('Coluna 5',2)])
+
+    content_view+=cmp.columns([cmp.card('Card 1','Conteúdo XYZ 1','/'),cmp.card('Card 2','Conteúdo XYZ 2',color_bg='bg-danger-subtle'),cmp.card('Card 3','Conteúdo XYZ 3',color_border='border-dark')])
+
+    content_view+=cmp.buttom('Botao Link /etl/','/etl/')
+    content_view+=cmp.dropdown('Dropdown',['Item 1','Item 2',cmp.buttom('Item 3 Botao Link /etl/','/etl/')],'primary')
+    content_view+=cmp.expander('Expander 1','<p>Conteúdo Expander 1</p>','exp_1')
+    content_view+=cmp.expander('Expander 2','<p>Conteúdo Expander 2</p>','exp_2')
+    content_view+=cmp.expander('Expander com componente Tabela',cmp.table(pd.DataFrame(list(Actions.objects.all().values()))),'exp_tb')
+
+    
+
+
+    context.update({'content_view':content_view})
+    return render(request=requests,
+                  template_name='drafts.html',
+                  context=context)
+
+
+
 
 def etl(requests):
-    actions=Actions.objects.all().order_by('name')
+    actions=Actions.objects.all().order_by('description')
     context={'page_title': f'{app_name} | ETL','title': f'{app_name} | ETL','actions':actions}
     context.update(refresh_context_base(requests))
     return render(request=requests,
@@ -39,6 +68,7 @@ def etl(requests):
 
 
 def action_detail(requests, id):
+    content_view=''
     action=Actions.objects.get(id=id)
     cache = CachePickle(expiration=60*5)
     cached_value = cache.get(action.name)
@@ -47,15 +77,11 @@ def action_detail(requests, id):
     else:
         datas = Datas.objects.filter(actions_id=id)
         cache.set(action.name, datas)
-
-    context={'page_title': f'{app_name} | ETL','title': f'{app_name} | ETL','action':action,'action_title':f'{action.id} | {action.name} | {action.description}','datas':datas}
-
+    context={'page_title': f'{app_name} | ETL','title': f'{app_name} | ETL','action':action,'action_title':f'{action.id} | {action.name} | {action.description}'}
     try:
         df = pd.DataFrame(list(datas.values()))
         print(df.columns)
         fig = px.line(df,x='date',y=['open','high','low','close','adj_close'])
-
-
         fig.update_layout(
             plot_bgcolor='#FAFAFA',  # Cor de fundo do gráfico
             paper_bgcolor='white',  # Cor de fundo da área do gráfico
@@ -92,12 +118,11 @@ def action_detail(requests, id):
             ]
         )
         graph_html = fig.to_html(full_html=False)
-        context.update({'graph_html':graph_html})
+        content_view+=graph_html
+        content_view+=cmp.table(df)
+        context.update({'content_view':content_view})
     except:
         pass
-
-
-
     context.update(refresh_context_base(requests))
     return render(request=requests,
                   template_name='action_detail.html',

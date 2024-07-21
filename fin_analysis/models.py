@@ -26,7 +26,7 @@ class TemplateBase(models.Model):
             models.Index(fields=['account_id','create_by','create_at']),
         ]
 
-### Actions
+### Models
 
 class Actions(TemplateBase):
     name = models.CharField(max_length=50,blank=False,null=False,unique=True)
@@ -34,8 +34,6 @@ class Actions(TemplateBase):
 
     def __str__(self) -> str:
         return f'{self.id} | {self.name}'
-
-### Datas
 
 class Datas(TemplateBase):
     actions_id = models.ForeignKey(Actions, on_delete=models.PROTECT,null=True)
@@ -49,6 +47,14 @@ class Datas(TemplateBase):
 
     def __str__(self) -> str:
         return f'{self.id} | {self.actions_id} | {self.date}'
+
+
+class News(TemplateBase):
+    actions_id = models.ForeignKey(Actions, on_delete=models.PROTECT,null=True)
+    news=models.TextField(blank=False,null=False)
+
+    def __str__(self) -> str:
+        return f'{self.id} | {self.create_at} | {self.news}'
 
 
 class Notifications(TemplateBase):

@@ -72,7 +72,7 @@ def add_action(requests):
     if not Actions.objects.filter(name=action).exists():
         new_action=Actions(create_by=requests.user,name=action,description=description).save()
     #refresh_action(requests)
-    actions=Actions.objects.all()
+    actions=Actions.objects.all().order_by('description')
     context={'actions':actions}
     return render(request=requests,
                   template_name='partials/htmx_components/list_actions.html',
