@@ -48,6 +48,11 @@ class Datas(TemplateBase):
     def __str__(self) -> str:
         return f'{self.id} | {self.actions_id} | {self.date}'
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['actions_id']),
+        ]
+
 
 class News(TemplateBase):
     actions_id = models.ForeignKey(Actions, on_delete=models.PROTECT,null=True)

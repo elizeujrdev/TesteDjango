@@ -70,13 +70,17 @@ def etl(requests):
 def action_detail(requests, id):
     content_view=''
     action=Actions.objects.get(id=id)
-    cache = CachePickle(expiration=60*5)
-    cached_value = cache.get(action.name)
-    if cached_value:
-        datas=cached_value
-    else:
-        datas = Datas.objects.filter(actions_id=id)
-        cache.set(action.name, datas)
+
+    #cache = CachePickle(expiration=60*5)
+    #cached_value = cache.get(action.name)
+    #if cached_value:
+    #    datas=cached_value
+    #else:
+    #    datas = Datas.objects.filter(actions_id=id)
+    #    cache.set(action.name, datas)
+
+    datas = Datas.objects.filter(actions_id=id)
+
     context={'page_title': f'{app_name} | ETL','title': f'{app_name} | ETL','action':action,'action_title':f'{action.id} | {action.name} | {action.description}'}
     try:
         df = pd.DataFrame(list(datas.values()))
