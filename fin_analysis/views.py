@@ -28,20 +28,18 @@ def home(requests):
                   template_name='index.html',
                   context=context)
 
+
 def drafts(requests):
     context={'page_title':f'{app_name} | Drafts', 'title': f'{app_name} | Drafts'}
     context.update(refresh_context_base(requests))
     content_view=''
 
-    page=cmp.Page()
-    page.add(cmp.H(1,'Titulo H1'))
+    page=cmp.Page().add(cmp.H(1,'Titulo H1'))
     coluns=cmp.Columns()
-    page.add(coluns)
-    page.add(cmp.H(3,'Titulo H3'))
     coluns.add(cmp.H(1,'Coluna 1'))
-    coluns.add(cmp.H(1,'Coluna 2'))
-    coluns.add([cmp.H(1,'Coluna 3'),cmp.H(1,'Coluna 4'),cmp.H(1,'Coluna 5')])
+    page.add(coluns)
     page.add(cmp.Markdown('Texto Qualquer'))
+    coluns.add([cmp.H(1,'Coluna 2'),cmp.H(1,'Coluna 3'),cmp.H(1,'Coluna 4'),cmp.H(1,'Coluna 5')])
     bt=cmp.Button('Botao Simples','/')
     page.add(bt)
     expander=cmp.Expander('Expander')
@@ -67,7 +65,6 @@ def etl(requests):
     return render(request=requests,
                   template_name='etl.html',
                   context=context)
-
 
 
 def action_detail(requests, id):

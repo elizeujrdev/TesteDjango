@@ -12,12 +12,15 @@ class Component:
             self.contents+=content
         else:
             self.contents.append(content)
+        return self
 
     def get_contents(self):
         return self.contents
 
     def clear(self):
         self.contents=[]
+        return self
+
 
 class Page(Component):
     def __init__(self):
