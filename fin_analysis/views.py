@@ -33,20 +33,22 @@ def drafts(requests):
     context={'page_title':f'{app_name} | Drafts', 'title': f'{app_name} | Drafts'}
     context.update(refresh_context_base(requests))
     content_view=''
+    page=cmp.Page()
+    datas=Actions.objects.all()
+    df = pd.DataFrame(list(datas.values()))
+    tabela = cmp.Table(df)
 
-    page=cmp.Page().add(cmp.H(1,'Titulo H1'))
-    coluns=cmp.Columns()
-    coluns.add(cmp.H(1,'Coluna 1'))
-    page.add(coluns)
-    page.add(cmp.Markdown('Texto Qualquer'))
-    coluns.add([cmp.H(1,'Coluna 2'),cmp.H(1,'Coluna 3'),cmp.H(1,'Coluna 4'),cmp.H(1,'Coluna 5')])
-    bt=cmp.Button('Botao Simples','/')
-    page.add(bt)
-    expander=cmp.Expander('Expander')
-    table=cmp.Table(pd.DataFrame(list(Actions.objects.all().values())))
-    expander.add(table)
-    page.add(expander)
-    page.add(cmp.Dropdown('Teste',[cmp.Markdown('Opcao 1'),cmp.Markdown('Opcao')]))
+    page.add(tabela)
+
+    listbt=[cmp.ButtonV2('Teste','/'),cmp.ButtonV2('Teste','/')]
+    div=cmp.Div('botao')
+    div.add(listbt)
+    page.add(div)
+
+
+    #page.add(cmp.Div('botao').add([cmp.ButtonV2('Teste','/'),cmp.ButtonV2('Teste','/')]))
+
+
 
 
     content_view+=page.render()

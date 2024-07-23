@@ -1,11 +1,17 @@
 from typing import Literal
 import uuid
 
+
 class Component:
     def __init__(self):
         self.key=uuid.uuid4()
         self.contents=[]
         self.component_type='Component'
+        self.class_css = 'generic'
+
+    def set_class_css(self,class_css):
+        self.class_css=class_css
+        return self
 
     def add(self,content):
         if type(content) == list:
@@ -21,17 +27,30 @@ class Component:
         self.contents=[]
         return self
 
-
-class Page(Component):
-    def __init__(self):
+class Div(Component):
+    def __init__(self,class_css):
         super().__init__()
-        self.component_type='Page'
+        self.component_type='Div'
+        self.class_css=class_css
 
     def render(self):
         contents_html=''
         for content in self.contents:
             contents_html+=content.render()
-        return contents_html
+        return f'<div class="{self.class_css}">{contents_html}</div>'
+
+
+class Page(Component):
+    def __init__(self):
+        super().__init__()
+        self.component_type='Page'
+        self.class_css='page'
+
+    def render(self):
+        contents_html=''
+        for content in self.contents:
+            contents_html+=f'<div class="content_page">{content.render()}</div>'
+        return f'<div class="{self.class_css}">{contents_html}</div>'
 
 
 class Columns(Component):
@@ -141,11 +160,11 @@ class H:
 
 
 class Button:
-    def __init__(self,title,action='',type='secondary'):
+    def __init__(self,title,action='',class_css='secondary'):
         self.component_type='Button'
         self.title=title
         self.action=action
-        self.type=type
+        self.class_css=class_css
 
     def render(self):
         options={
@@ -158,7 +177,7 @@ class Button:
             'light':f'<button type="button" class="btn btn-light">{self.title}</button>',
             'dark':f'<button type="button" class="btn btn-dark">{self.title}</button>'
             }
-        return f"""<a href="{self.action}">{options[self.type]}</a>"""
+        return f"""<a href="{self.action}">{options[self.class_css]}</a>"""
 
 
 class Table:
@@ -179,7 +198,7 @@ class Table:
                 line_column_data+=f'<td>{dt}</td>'
             lines+=f'<tr>{line_column_data}</tr>'
         html=f"""
-    <table class="table table-hover" id="table_detail" style="width: 90%; margin: 0 auto; border-collapse: collapse;">
+    <table class="table table-bordered" id="table_detail" style="width: 90%; margin: 0 auto; border-collapse: collapse;">
         <thead class="{self.header_style}">
             <tr>
             {columns}
@@ -222,6 +241,18 @@ class Card:
     </div>
     """
         return html
+
+class ButtonV2:
+    def __init__(self,title,action='',class_css='btn btn-outline-danger'):
+        self.component_type='ButtonV2'
+        self.title=title
+        self.action=action
+        self.class_css=class_css
+
+    def render(self):
+        html=f"""<a href="{self.action}"><button type="button" class="{self.class_css}" id="{self.title}">Botão</button></a>"""
+        return html
+
 
 
 
