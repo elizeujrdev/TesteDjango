@@ -41,9 +41,19 @@ def drafts(requests):
     page.add(tabela)
 
     listbt=[cmp.ButtonV2('Teste','/'),cmp.ButtonV2('Teste','/')]
-    div=cmp.Div('botao')
-    div.add(listbt)
-    page.add(div)
+    div1=cmp.Div('botao')
+    div1.add(listbt)
+    page.add(div1)
+
+    divexpander = cmp.Div('expander')
+    expander = cmp.Expander('🔗 | Contexto dos Contratos')
+    divexpander.add(expander)
+    toggle = cmp.Toggle('Carregar')
+    conteudo = cmp.Markdown("""<p><span style="color: red;">O que é:</span> Este controle apresenta o contexto atual de todos os contratos em aberto de forma gráfica. <br>
+                </p><span style="color: red;">Para que serve:</span> Seu objetivo é apresentar de forma visual quais os confrontos um contrato possui, podendo analisar os volumes nominais, executados e à realizar de cada confronto, você pode utilizado quanto precisar entender como um contrato foi distribuído entre lotes.""")
+    expander.add(conteudo)
+    expander.add(toggle)
+    page.add(divexpander)
 
 
     #page.add(cmp.Div('botao').add([cmp.ButtonV2('Teste','/'),cmp.ButtonV2('Teste','/')]))

@@ -256,3 +256,14 @@ class ButtonV2:
 
 
 
+class Toggle:
+    def __init__(self,title):
+        self.component_type='Toggle'
+        self.title=title
+
+    def render(self):
+        html=f"""<p><div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">{self.title}</label>
+                  </div>"""
+        return html
