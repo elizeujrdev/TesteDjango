@@ -267,3 +267,37 @@ class Toggle:
                     <label class="form-check-label" for="flexSwitchCheckDefault">{self.title}</label>
                   </div>"""
         return html
+    
+
+class Totalizer:
+    def __init__(self,title,value, color):
+        self.component_type='Totalizer'
+        self.title=title
+        self.value=value
+        self.color=color
+
+    def render(self):
+
+        options={
+            'verde': f"""<section style="border-left: 5px solid rgb(170, 170, 0)" class="total">
+            <p>{self.title}</p>
+            <Span style="color: green; font-weight: bold;">{self.value}</Span>
+        </section>""",
+
+            'vermelho':f"""<section style="border-left: 5px solid rgb(170, 76, 0)" class="total">
+            <p>{self.title}</p>
+            <Span style="color: darkorange; font-weight: bold;">{self.value}</Span>
+        </section>""",
+
+            'marrom':f"""<section style="border-left: 5px solid rgb(170, 123, 0)" class="total">
+            <p>{self.title}</p>
+            <Span style="color: rgb(170, 122, 0); font-weight: bold;">{self.value}</Span>
+        </section>""",
+
+        'preto':f"""<section style="border-left: 5px solid black" class="total">
+            <p>{self.title}</p>
+            <Span style="color: black; font-weight: bold;">{self.value}</Span>
+        </section>"""
+            }
+
+        return options[self.color]

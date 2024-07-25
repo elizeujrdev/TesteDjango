@@ -34,17 +34,39 @@ def drafts(requests):
     context.update(refresh_context_base(requests))
     content_view=''
     page=cmp.Page()
+
+    #totalizadores
+    volprovisionado = 1000000
+    voltotruto = 2932984
+    voltotal= 813813
+    volnominal = 928322
+
+    divtotalizer = cmp.Div('totalizadores')
+    totalizer1 = cmp.Totalizer('Vol. Provisionado', format_number(volprovisionado), 'verde')
+    divtotalizer.add(totalizer1)
+    totalizer2 = cmp.Totalizer('Vol. Tot. Bruto', format_number(voltotruto),'vermelho')
+    divtotalizer.add(totalizer2)
+    totalizer3 = cmp.Totalizer('Vol. Total', format_number(voltotal), 'marrom')
+    divtotalizer.add(totalizer3)
+    totalizer4 = cmp.Totalizer('Vol. Nominal', format_number(volnominal), 'preto')
+    divtotalizer.add(totalizer4)
+    page.add(divtotalizer)
+
+
+    #tabela
     datas=Actions.objects.all()
     df = pd.DataFrame(list(datas.values()))
     tabela = cmp.Table(df)
-
     page.add(tabela)
 
+    #botôes
     listbt=[cmp.ButtonV2('Teste','/'),cmp.ButtonV2('Teste','/')]
     div1=cmp.Div('botao')
     div1.add(listbt)
     page.add(div1)
 
+
+    #expander
     divexpander = cmp.Div('expander')
     expander = cmp.Expander('🔗 | Contexto dos Contratos')
     divexpander.add(expander)
@@ -54,10 +76,6 @@ def drafts(requests):
     expander.add(conteudo)
     expander.add(toggle)
     page.add(divexpander)
-
-
-    #page.add(cmp.Div('botao').add([cmp.ButtonV2('Teste','/'),cmp.ButtonV2('Teste','/')]))
-
 
 
 
@@ -170,6 +188,8 @@ def notifications(requests):
                   template_name='notifications.html',
                   context=context)
 
+def format_number(number):
+    return "{:,.0f}".format(number).replace(",", ".")
 
 
 
