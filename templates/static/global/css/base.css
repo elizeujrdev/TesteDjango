@@ -107,10 +107,10 @@ height: 60px;
       
       .accordion-button:not(.collapsed) {
         background-color: white !important; /* Cor de fundo quando ativo */
-        font-size: 13px;
+        font-size: 15px;
       }
       .accordion-button.collapsed {
-        font-size: 13px;
+        font-size: 20px;
       }
       
       .expanded {
